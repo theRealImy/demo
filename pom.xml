@@ -32,9 +32,9 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.google.apis</groupId>
-			<artifactId>google-api-services-dialogflow</artifactId>
-			<version>v2-rev50-1.25.0</version>
+			<groupId>com.google.cloud</groupId>
+			<artifactId>google-cloud-dialogflow</artifactId>
+			<version>0.71.0-alpha</version>
 		</dependency>
 
 		<dependency>

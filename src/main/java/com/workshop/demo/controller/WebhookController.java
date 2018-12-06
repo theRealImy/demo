@@ -1,13 +1,11 @@
 package com.workshop.demo.controller;
 
-import com.google.cloud.dialogflow.v2beta1.WebhookRequest;
-import com.google.cloud.dialogflow.v2beta1.WebhookResponse;
-import org.json.JSONObject;
+import com.workshop.demo.model.ResponseWrapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
 
@@ -17,22 +15,20 @@ import java.io.IOException;
 @RestController
 public class WebhookController {
 
+    private static final String SUCCESS = "Success";
+    private static final String ERROR = "Error";
+
 
     @RequestMapping(value = "/map", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
-    public ModelAndView mapRequest(@RequestBody WebhookRequest request) throws IOException {
+    public ResponseEntity<ResponseWrapper> mapRequest(@RequestBody String payload) throws IOException {
 
-        System.out.println(request);
+        // if payload is empty, don't do anything
+        if (!StringUtils.hasText(payload)) {
+            new ResponseEntity<>(new ResponseWrapper(SUCCESS), HttpStatus.OK);
+        }
 
-        return new ModelAndView();
-    }
+        return new ResponseEntity<>(new ResponseWrapper(SUCCESS), HttpStatus.OK);
 
-    @RequestMapping(value = "/map2", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(value = HttpStatus.OK)
-    public ModelAndView onlyTest(@RequestBody String request) throws IOException {
-
-        System.out.println(request);
-
-        return new ModelAndView("/map");
     }
 }
